@@ -60,7 +60,7 @@ const useGsap = (userType, ctrlref) => {
     setEnabled(false);
   };
   useLayoutEffect(() => {
-    const duration = 0.2;
+    const duration = 3;
 
     let ctx = gsap.context(() => {
       //   console.log(tl);

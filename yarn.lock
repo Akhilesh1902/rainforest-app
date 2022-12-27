@@ -562,6 +562,32 @@
     suspend-react "^0.0.8"
     zustand "^3.7.1"
 
+"@theatre/core@0.5":
+  version "0.5.0"
+  resolved "https://registry.yarnpkg.com/@theatre/core/-/core-0.5.0.tgz#a7c1fbd658d514432e637c31fa44da687fc7a53c"
+  integrity sha512-IW3Ym3mPL+u6+Ectn36Ku7oXEsGRXESZ6lX6EhG+LFSs4cibMRnDgmuUIs7PMHBa1a5RBK7Y91SdjHhTy4D1rg==
+  dependencies:
+    "@theatre/dataverse" "0.5.0"
+
+"@theatre/dataverse@0.5.0":
+  version "0.5.0"
+  resolved "https://registry.yarnpkg.com/@theatre/dataverse/-/dataverse-0.5.0.tgz#8a273bf16083fd26f205dca2e4fac2cf2005d41f"
+  integrity sha512-wSqxrfIf9gXmZ3zbmWH1ZLLjDU8rRJ15aAK1hszZUcW5riNd1VFeGROh5+BGF3RZXtWwYIxsyQ7DwS+GbRgnaA==
+  dependencies:
+    lodash-es "^4.17.21"
+
+"@theatre/r3f@0.5":
+  version "0.5.0"
+  resolved "https://registry.yarnpkg.com/@theatre/r3f/-/r3f-0.5.0.tgz#039f9ee9522a302793bdc8c45dd743d9a068e65b"
+  integrity sha512-C6A5hy8Hr8w95SNax1Fhy8gmSQQBNwPrQtJy0Nec5A+ZffL34nulW3GwEQM05rvJ4ly4RBT/pzmya/ZmFbqpQw==
+
+"@theatre/studio@0.5":
+  version "0.5.0"
+  resolved "https://registry.yarnpkg.com/@theatre/studio/-/studio-0.5.0.tgz#153f54b5468d926c3c48af1c3b3b1fbaeb9188bf"
+  integrity sha512-4Uvm8L/C9rJptz/7DvRp0fP10GkMNV5XVlgYgYELpDgxK2l0m9L68ZPg1wYCDLOqDCBKIs/LKzm0TMW/DAj8Iw==
+  dependencies:
+    "@theatre/dataverse" "0.5.0"
+
 "@types/offscreencanvas@^2019.6.4":
   version "2019.7.0"
   resolved "https://registry.yarnpkg.com/@types/offscreencanvas/-/offscreencanvas-2019.7.0.tgz#e4a932069db47bb3eabeb0b305502d01586fa90d"
@@ -1053,6 +1079,11 @@ lilconfig@^2.0.5, lilconfig@^2.0.6:
   version "2.0.6"
   resolved "https://registry.yarnpkg.com/lilconfig/-/lilconfig-2.0.6.tgz#32a384558bd58af3d4c6e077dd1ad1d397bc69d4"
   integrity sha512-9JROoBW7pobfsx+Sq2JsASvCo6Pfo6WWoUW79HuB1BCoBXD4PLWJPqDF6fNj67pqBYTbAHkE57M1kS/+L1neOg==
+
+lodash-es@^4.17.21:
+  version "4.17.21"
+  resolved "https://registry.yarnpkg.com/lodash-es/-/lodash-es-4.17.21.tgz#43e626c46e6591b7750beb2b50117390c609e3ee"
+  integrity sha512-mKnC+QJ9pWVzv+C4/U3rRsHapFfHvQFoFB92e52xeyGMcX6/OlIl78je1u8vePzYZSkkogMPJ2yjxxsb89cxyw==
 
 lodash.clamp@^4.0.3:
   version "4.0.3"

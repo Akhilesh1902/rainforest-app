@@ -2,16 +2,17 @@ import { Canvas } from '@react-three/fiber';
 import CanvasWrapper from './Components/ThreeJS/CanvasWrapper';
 import Flex from './Components/UI/Flex';
 import Section from './Components/UI/Section';
-import { BG, BG1 } from './assets/images';
-import { Environment, EnvironmentMap } from '@react-three/drei';
-import studio from '@theatre/studio';
-import extention from '@theatre/r3f/dist/extension';
-import { SheetProvider } from '@theatre/r3f';
-import { getProject } from '@theatre/core';
+import { useState } from 'react';
 
 function App() {
-  const project = getProject('My Project');
-  const sheet = project.sheet('My Sheet');
+  const [hdri, sethdri] = useState('fields');
+
+  const onThumbnailSelect = (hdriname) => {
+    console.log(hdriname);
+    console.log('Thumbnail Selected ');
+    sethdri(hdriname);
+  };
+
   return (
     <div className='App w-full'>
       <div className='absolute z-0 w-screen h-screen'>
@@ -25,7 +26,7 @@ function App() {
             id={'labels'}></div>
 
           <Canvas>
-            <CanvasWrapper />
+            <CanvasWrapper hdri={hdri} onThumbnailSelect={onThumbnailSelect} />
           </Canvas>
           {/* </SheetProvider> */}
         </div>
@@ -43,6 +44,6 @@ function App() {
     </div>
   );
 }
-studio.initialize();
-studio.extend(extention);
+// studio.initialize();
+// studio.extend(extention);
 export default App;

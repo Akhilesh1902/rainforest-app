@@ -1,44 +1,31 @@
 import {
-  Box,
   Environment,
-  EnvironmentMap,
   OrbitControls,
-  OrthographicCamera,
   PerspectiveCamera,
-  useTexture,
 } from '@react-three/drei';
 import { useFrame, useThree } from '@react-three/fiber';
-import { Suspense, useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { MOUSE, Vector3 } from 'three';
-import { degToRad, radToDeg } from 'three/src/math/MathUtils';
-import { BG } from '../../assets/images';
+import { degToRad } from 'three/src/math/MathUtils';
 import useGsap from '../../customHooks/useGsap';
-import BackgroundPlane from './BackgroundPlane';
 import ForestMap from './ForestMap';
 import Marker from './Marker';
 
-const CanvasWrapper = () => {
+const CanvasWrapper = ({ onThumbnailSelect, hdri }) => {
   const { camera } = useThree();
-  const bgtexture = useTexture(BG);
 
   useEffect(() => {
     if (camera) {
       console.log('changing cam');
       console.log(camera);
-      camera.fov = 30;
+      console.log(hdri);
+      camera.fov = hdri === 'fields' ? 30 : 80;
       camera.position.set(-0.516, 7.076, -16.788);
       camera.rotation.set(-2.012, -0.045, -3.045);
       ctrlRef.current.enabled = true;
       console.log(camera);
     }
-  }, [camera]);
-  //   x: -0.5162350414046275
-  // y: 7.070801880238701
-  // z: -16.788346457083616
-
-  // _x: -2.0127386628304444
-  // _y: -0.04560897519171728
-  // _z: -3.045529459100607
+  }, [camera, hdri]);
 
   useFrame(() => {
     const minPan = new Vector3(-14, 0, -15);
@@ -66,11 +53,12 @@ const CanvasWrapper = () => {
         minDistance={25}
         maxDistance={35}
         zoomSpeed={0.5}
+        enablePan={hdri === 'fields' ? true : false}
         enableDamping={true}
         dampingFactor={0.1}
         // // enableRotate={false}
-        minPolarAngle={degToRad(30)}
-        maxPolarAngle={degToRad(60)}
+        minPolarAngle={degToRad(hdri === 'fields' ? 30 : 0)}
+        maxPolarAngle={degToRad(hdri === 'fields' ? 60 : 180)}
         panSpeed={0.5}
         rotateSpeed={0.1}
         // enableRotate={false}
@@ -85,16 +73,37 @@ const CanvasWrapper = () => {
       />
       <PerspectiveCamera makeDefault={true} />
       {/* <OrbitControls ref={ctrlRef} enabled={false} /> */}
-      <ForestMap ctrlRef={ctrlRef} />
-      <Environment files={'./fields.hdr'} background={'only'} intensity={0.5} />
-      <Suspense>{/* <BackgroundPlane /> */}</Suspense>
-      {/* <Box position={[-5, -5, -15]}></Box>
-      <Box></Box> */}
-
-      {!enabled &&
-        markerPoints.map((point, i) => {
-          return <Marker position={point} enableMarkers={!enabled} key={i} />;
-        })}
+      <Environment
+        files={`./hdri/${hdri}.hdr`}
+        background={'only'}
+        intensity={0.5}
+      />
+      {hdri === 'fields' ? (
+        <>
+          <ForestMap ctrlRef={ctrlRef} />
+          {!enabled &&
+            markerPoints.map((point, i) => {
+              return (
+                <Marker
+                  position={point}
+                  onThumbnailSelect={onThumbnailSelect}
+                  enableMarkers={!enabled}
+                  key={i}
+                />
+              );
+            })}
+        </>
+      ) : (
+        <>
+          {/* <Box /> */}
+          <Marker
+            position={[1, 0, 1]}
+            enableMarkers={!enabled}
+            name={'fields'}
+            onThumbnailSelect={onThumbnailSelect}
+          />
+        </>
+      )}
     </>
   );
 };

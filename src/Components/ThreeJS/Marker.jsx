@@ -3,7 +3,8 @@ import { useFrame, useThree } from '@react-three/fiber';
 import React, { useEffect, useRef } from 'react';
 import { renderToStaticMarkup } from 'react-dom/server';
 import { Vector3 } from 'three';
-const Marker = ({ position, enableMarkers }) => {
+
+const Marker = ({ position, enableMarkers, onThumbnailSelect, name }) => {
   console.log(enableMarkers);
   const { gl, camera } = useThree();
   const canvas = gl.domElement;
@@ -16,7 +17,7 @@ const Marker = ({ position, enableMarkers }) => {
     const labelContainerElem = document.querySelector('#labels');
     const label = renderToStaticMarkup(
       <Label
-        name={'hello'}
+        name={name || 'garden'}
         // initialAnim={initialAnim}
         imageUrl={''}
         pos={position}
@@ -25,7 +26,12 @@ const Marker = ({ position, enableMarkers }) => {
     const obj = markerRef.current;
     const elem = document.createElement('div');
     elem.addEventListener('click', (e) => {
-      onClick(e, obj);
+      console.log('thumnail click');
+      const elem = e.target.closest('#label-div');
+      console.log(elem);
+      const hdriName = elem.getAttribute('data-name');
+      console.log(hdriName);
+      onThumbnailSelect(hdriName);
     });
     elem.innerHTML = label;
     // obj.material.transparent = true;
@@ -86,6 +92,7 @@ export default Marker;
 const Label = ({ name, initialAnim, imageUrl, pos }) => {
   console.log(initialAnim);
   console.log(pos);
+
   return (
     <div
       data-pos={JSON.stringify(pos)}
@@ -93,7 +100,7 @@ const Label = ({ name, initialAnim, imageUrl, pos }) => {
       id='label-div'
       className={` ${
         initialAnim ? 'hidden' : 'flex'
-      }  flex-col gap-2 w-max items-center`}>
+      }  flex-col gap-2 w-max items-center pointer-events-auto text-cyan-100 `}>
       <div className='rounded-full bg-slate-900'>
         <img
           // src={`./buildings/${imageUrl}`}
@@ -102,7 +109,9 @@ const Label = ({ name, initialAnim, imageUrl, pos }) => {
           className='object-cover h-16 w-16 border-slate-300 border-2  rounded-full'
         />
       </div>
-      <p className='text-xs w-max font-poppins font-medium '>{name}</p>
+      <p className='text-2xl w-max font-poppins capitalize font-medium '>
+        {name}
+      </p>
     </div>
   );
 };

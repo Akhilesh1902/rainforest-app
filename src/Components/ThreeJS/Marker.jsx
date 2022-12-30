@@ -3,8 +3,14 @@ import { useFrame, useThree } from '@react-three/fiber';
 import React, { useEffect, useRef } from 'react';
 import { renderToStaticMarkup } from 'react-dom/server';
 import { Vector3 } from 'three';
-
-const Marker = ({ position, enableMarkers, onThumbnailSelect, name }) => {
+import { motion } from 'framer-motion';
+const Marker = ({
+  position,
+  enableMarkers,
+  onThumbnailSelect,
+  name,
+  surroundMarker,
+}) => {
   console.log(enableMarkers);
   const { gl, camera } = useThree();
   const canvas = gl.domElement;
@@ -65,6 +71,8 @@ const Marker = ({ position, enableMarkers, onThumbnailSelect, name }) => {
 
   const tempV = new Vector3();
   // console.log(markerRef.current);
+  console.log(markerRef.current);
+  console.log(enableMarkers);
   useFrame(() => {
     // console.log(markerRef.current);
     markerRef.current.updateWorldMatrix(true, false);

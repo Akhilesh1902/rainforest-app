@@ -15,27 +15,6 @@ const ForestMap = ({ ctrlRef }) => {
   const planeRef = useRef();
   const { camera } = useThree();
   const [allPoints, setAllPoints] = useState([]);
-  //   console.log(planeRef.current);
-  // useEffect(() => {
-  //   if (planeRef.current) {
-  //     console.log(planeRef.current.geometry.attributes.position.array);
-
-  //     const geometry = planeRef.current.geometry;
-
-  //     let positions = geometry.attributes['position'].array;
-  //     let ptCout = positions.length / 3;
-  //     for (let i = 0; i < ptCout; i++) {
-  //       let p = new Vector3(
-  //         positions[i * 3],
-  //         positions[i * 3 + 1],
-  //         positions[i * 3 + 2]
-  //       );
-  //       const v = planeRef.current.localToWorld(p);
-  //       // console.log(p);
-  //       // console.log(v);
-  //     }
-  //   }
-  // }, [planeRef.current]);
 
   useEffect(() => {
     console.log('here');

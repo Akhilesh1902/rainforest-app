@@ -32,6 +32,11 @@ const CanvasWrapper = ({ onThumbnailSelect, hdri }) => {
     const maxPan = new Vector3(9, 21.5, 15);
     ctrlRef.current.target.clamp(minPan, maxPan);
   });
+  // useFrame(({ clock }) => {
+  //   if (fpc.current === undefined) return;
+  //   fpc.current.update(clock.getElapsedTime());
+  // });
+
   const ctrlRef = useRef();
   const [enabled] = useGsap('initial', ctrlRef.current);
   console.log(enabled);
@@ -42,6 +47,13 @@ const CanvasWrapper = ({ onThumbnailSelect, hdri }) => {
     new Vector3(-5, 0, 4),
     new Vector3(5, 0, -2),
   ]);
+
+  useEffect(() => {
+    if (!enabled) {
+      console.log('here');
+    }
+  }, [enabled]);
+
   return (
     <>
       <directionalLight color={0xe2ffa1} position={[1, 1, 1]} intensity={1} />
@@ -97,7 +109,8 @@ const CanvasWrapper = ({ onThumbnailSelect, hdri }) => {
         <>
           {/* <Box /> */}
           <Marker
-            position={[1, 0, 1]}
+            surroundMarker={true}
+            position={[10, 0, 1]}
             enableMarkers={!enabled}
             name={'fields'}
             onThumbnailSelect={onThumbnailSelect}

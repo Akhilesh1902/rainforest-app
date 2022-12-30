@@ -1,16 +1,34 @@
 import { Canvas } from '@react-three/fiber';
 import CanvasWrapper from './Components/ThreeJS/CanvasWrapper';
-import Flex from './Components/UI/Flex';
-import Section from './Components/UI/Section';
-import { useState } from 'react';
+import Flex from './Components/UIHelpers/Flex';
+import Section from './Components/UIHelpers/Section';
+import { useEffect, useState } from 'react';
+import Home from './Components/UI/Home';
+import About from './Components/UI/About';
+import { motion } from 'framer-motion';
 
 function App() {
   const [hdri, sethdri] = useState('fields');
+  const [showAbout, setShowAbout] = useState(false);
 
   const onThumbnailSelect = (hdriname) => {
     console.log(hdriname);
     console.log('Thumbnail Selected ');
     sethdri(hdriname);
+  };
+
+  const container = {
+    hidden: { opacity: 0 },
+    show: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.5,
+      },
+    },
+  };
+
+  const toggleAbout = () => {
+    setShowAbout((s) => !s);
   };
 
   return (
@@ -21,9 +39,12 @@ function App() {
             <img src={BG1} alt='' className='object-cover' />
           </div> */}
           {/* <SheetProvider sheet={sheet}> */}
-          <div
+          <motion.div
+            // variants={container}
+            // initial='hidden'
+            // animate='show'
             className='absolute overflow-hidden h-full w-full pointer-events-none top-0 left-0 z-10'
-            id={'labels'}></div>
+            id={'labels'}></motion.div>
 
           <Canvas>
             <CanvasWrapper hdri={hdri} onThumbnailSelect={onThumbnailSelect} />
@@ -31,15 +52,17 @@ function App() {
           {/* </SheetProvider> */}
         </div>
       </div>
-      <div className='absolute z-10'>
-        <div className='h-20 bg-gray-400 '>
+      <div className='absolute z-10 w-full'>
+        <div className='h-40 bg-gray400   w-full'>
           <Section.Fit>
-            <Flex.Col>
-              <h1>this is an app</h1>
-              <h1>This is another app</h1>
-            </Flex.Col>
+            <Home toggleAbout={toggleAbout} />
           </Section.Fit>
         </div>
+        {showAbout && (
+          <Section.Fit className='absolute w-1/2 bg-gray-400 bottom-100 h-max right-0 m-0 -mt-12 '>
+            <About />
+          </Section.Fit>
+        )}
       </div>
     </div>
   );

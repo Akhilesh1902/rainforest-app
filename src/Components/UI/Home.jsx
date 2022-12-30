@@ -15,7 +15,7 @@ const Home = ({ toggleAbout }) => {
       <motion.div className='mr-19'>
         <img src='./logo.png' alt='' className='w-52' />
       </motion.div>
-      <Flex.Row className='gap-6 bg-green-700 p-4 h-max self-center '>
+      <Flex.Row className='!gap-6 bg-green-700 p-4 h-max self-center '>
         {links.map((link, i) => (
           <button
             className='font-bold font-sans text-slate-200 hover:scale-110'

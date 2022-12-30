@@ -9,7 +9,7 @@ const About = () => {
     show: {
       opacity: 1,
       transition: {
-        staggerChildren: 0.5,
+        staggerChildren: 0.3,
       },
     },
   };
@@ -21,15 +21,24 @@ const About = () => {
   return (
     <>
       <Section.Yscroll className=' m-0'>
-        <Flex.Col>
+        <Flex.Col style={{ maxHeight: '70vh' }}>
           <motion.div
             variants={container}
             initial='hidden'
             animate='show'
-            className='font-sans'>
-            <motion.h1 variants={listItem} className={'text-2xl font-bold'}>
+            className='font-sans flex flex-col gap-2 text-slate-300'>
+            <motion.h1
+              variants={listItem}
+              className={
+                'text-2xl font-bold text-yellow-400 underline underline-offset-4'
+              }>
               AXYZ GLobal Technology
             </motion.h1>
+            <motion.h2
+              variants={listItem}
+              className='font-semibold text-yellow-200'>
+              Lorem ipsum dolor sit amet.
+            </motion.h2>
             <motion.p variants={listItem} className='first-letter:ml-10'>
               Lorem ipsum dolor sit amet consectetur adipisicing elit. Vel,
               nesciunt. Quis laudantium, ullam eveniet magni quae voluptates a
@@ -37,13 +46,21 @@ const About = () => {
               tempore, architecto magnam quasi alias assumenda asperiores? Odit,
               eaque unde ipsa earum velit iusto? Optio magnam sequi dolor
               accusamus aperiam delectus dolores placeat ut? Quas quaerat
-              aliquam impedit! Facilis suscipit voluptas cum doloribus, sapiente
-              velit obcaecati voluptate consequuntur asperiores aliquid.
-              Incidunt quasi perspiciatis temporibus natus enim sapiente
-              accusamus nobis! Facere laudantium voluptate harum inventore
-              nobis, soluta maiores, totam quos mollitia, odio sint! Iusto
-              maxime laudantium accusamus blanditiis itaque, vero soluta,
-              sapiente nam minus repellat qui.
+            </motion.p>
+            <motion.h2
+              variants={listItem}
+              className='font-semibold text-yellow-200'>
+              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Harum,
+              impedit.
+            </motion.h2>
+
+            <motion.p variants={listItem} className='first-letter:ml-10'>
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Vel,
+              nesciunt. Quis laudantium, ullam eveniet magni quae voluptates a
+              aspernatur maiores fugiat velit consequatur commodi possimus
+              tempore, architecto magnam quasi alias assumenda asperiores? Odit,
+              eaque unde ipsa earum velit iusto? Optio magnam sequi dolor
+              accusamus aperiam delectus dolores placeat ut? Quas quaerat
             </motion.p>
           </motion.div>
         </Flex.Col>

@@ -59,7 +59,9 @@ function App() {
           </Section.Fit>
         </div>
         {showAbout && (
-          <Section.Fit className='absolute w-1/2 bg-gray-400 bottom-100 h-max right-0 m-0 -mt-12 '>
+          <Section.Fit
+            className='absolute  bg-green-900 bg-opacity-70 bottom-100 h-max right-0 m-0 -mt-12 '
+            style={{ maxWidth: '30vw' }}>
             <About />
           </Section.Fit>
         )}

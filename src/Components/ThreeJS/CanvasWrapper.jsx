@@ -10,6 +10,7 @@ import { degToRad } from 'three/src/math/MathUtils';
 import useGsap from '../../customHooks/useGsap';
 import ForestMap from './ForestMap';
 import Marker from './Marker';
+import { propertyData } from '../constants';
 
 const CanvasWrapper = ({ onThumbnailSelect, hdri }) => {
   const { camera } = useThree();
@@ -17,9 +18,13 @@ const CanvasWrapper = ({ onThumbnailSelect, hdri }) => {
   useEffect(() => {
     if (camera) {
       console.log('changing cam');
-      console.log(camera);
-      console.log(hdri);
-      camera.fov = hdri === 'fields' ? 30 : 80;
+      // console.log(camera);
+      // console.log(hdri);
+      if (hdri === 'fields') {
+        camera.fov = 30;
+      } else {
+        camera.fov = 80;
+      }
       camera.position.set(-0.516, 7.076, -16.788);
       camera.rotation.set(-2.012, -0.045, -3.045);
       ctrlRef.current.enabled = true;
@@ -28,8 +33,9 @@ const CanvasWrapper = ({ onThumbnailSelect, hdri }) => {
   }, [camera, hdri]);
 
   useFrame(() => {
-    const minPan = new Vector3(-14, 0, -15);
-    const maxPan = new Vector3(9, 21.5, 15);
+    const minPan = new Vector3(-10, 0, -15);
+    const maxPan = new Vector3(9, 12, 5);
+    // const maxPan = new Vector3(9, 21.5, 15);
     ctrlRef.current.target.clamp(minPan, maxPan);
   });
   // useFrame(({ clock }) => {
@@ -42,7 +48,6 @@ const CanvasWrapper = ({ onThumbnailSelect, hdri }) => {
   console.log(enabled);
   const [markerPoints] = useState([
     new Vector3(8, 0, 5),
-    // new Vector3(3, 0, 3),
     new Vector3(-5, 0, -8),
     new Vector3(-5, 0, 4),
     new Vector3(5, 0, -2),
@@ -101,6 +106,9 @@ const CanvasWrapper = ({ onThumbnailSelect, hdri }) => {
                   onThumbnailSelect={onThumbnailSelect}
                   enableMarkers={!enabled}
                   key={i}
+                  // imgUrl={propertyData[i].image}
+                  // name={propertyData[i].name}
+                  data={propertyData[i]}
                 />
               );
             })}
@@ -114,6 +122,7 @@ const CanvasWrapper = ({ onThumbnailSelect, hdri }) => {
             enableMarkers={!enabled}
             name={'fields'}
             onThumbnailSelect={onThumbnailSelect}
+            data={{ name: 'fields', hdri: 'fields', image: 'forest.jpg' }}
           />
         </>
       )}

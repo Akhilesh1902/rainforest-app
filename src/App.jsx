@@ -7,6 +7,9 @@ import Home from './Components/UI/Home';
 import About from './Components/UI/About';
 import { motion } from 'framer-motion';
 
+import { Label } from './Components/ThreeJS/Marker';
+import { propertyData } from './Components/constants';
+
 function App() {
   const [hdri, sethdri] = useState('fields');
   const [showAbout, setShowAbout] = useState(false);
@@ -15,7 +18,9 @@ function App() {
     console.log(hdriname);
     console.log('Thumbnail Selected ');
     sethdri(hdriname);
+    setShowNextMaps(hdriname === 'fields' ? false : true);
   };
+  const [showNextMaps, setShowNextMaps] = useState(false);
 
   const container = {
     hidden: { opacity: 0 },
@@ -64,6 +69,34 @@ function App() {
             style={{ maxWidth: '30vw' }}>
             <About />
           </Section.Fit>
+        )}
+        {showNextMaps && (
+          <div className='w-fit absolute left-10'>
+            <Flex.Col className='gap-5'>
+              {propertyData.map((item, i) => {
+                return (
+                  <Label
+                    // name={item.name}
+                    hdri={item.hdri}
+                    imageUrl={item.image}
+                    onThumbnailSelect={onThumbnailSelect}
+                  />
+                );
+              })}
+              {/* <Flex.Col className='items-center justify-cente'>
+                <div className='w-fit'>
+                  <img
+                    src='./vite.svg'
+                    alt=''
+                    className='object-cover h-16 w-16 rounded-full border-2'
+                  />
+                </div>
+                <h1 className='w-fit font-poppins font-semibold text-slate-200 text-lg'>
+                  ksdjf
+                </h1>
+              </Flex.Col> */}
+            </Flex.Col>
+          </div>
         )}
       </div>
     </div>

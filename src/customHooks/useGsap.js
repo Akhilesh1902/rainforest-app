@@ -6,6 +6,7 @@ const useGsap = (userType, ctrlref) => {
   const [enabled, setEnabled] = useState(false);
   const { camera } = useThree();
   const [type, setType] = useState(userType);
+  const [done, setDone] = useState(false);
 
   const initialCameraData = [
     {
@@ -58,6 +59,7 @@ const useGsap = (userType, ctrlref) => {
     console.log('complete');
     ctrlref.enabled = true;
     setEnabled(false);
+    setDone(true);
   };
   useLayoutEffect(() => {
     const duration = 3;
@@ -66,7 +68,7 @@ const useGsap = (userType, ctrlref) => {
       //   console.log(tl);
       console.log(ctrlref);
       //   console.log(userType);
-      if (userType === 'initial' && ctrlref) {
+      if (userType === 'initial' && ctrlref && !done) {
         const tl = gsap.timeline({
           onStart: () => {
             console.log('start');

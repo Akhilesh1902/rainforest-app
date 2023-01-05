@@ -23,6 +23,7 @@ const ForestMap = ({ ctrlRef }) => {
       if (e.key === 'p') {
         console.log(ctrlRef.current);
         console.log({ pos: camera.position, rotation: camera.rotation });
+        console.log({ target: ctrlRef.current.target });
         // console.log({ target: camera.getWorldDirection });
       }
     };

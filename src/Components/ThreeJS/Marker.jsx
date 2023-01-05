@@ -4,18 +4,10 @@ import React, { useEffect, useRef } from 'react';
 import { renderToStaticMarkup } from 'react-dom/server';
 import { Vector3 } from 'three';
 import { motion } from 'framer-motion';
-const Marker = ({
-  position,
-  enableMarkers,
-  onThumbnailSelect,
-  name,
-  surroundMarker,
-}) => {
+const Marker = ({ position, enableMarkers, onThumbnailSelect, data }) => {
   console.log(enableMarkers);
   const { gl, camera } = useThree();
   const canvas = gl.domElement;
-  // console.log(position);
-  const divRef = useRef(null);
   const markerRef = useRef();
   const elemRef = useRef();
 
@@ -23,25 +15,46 @@ const Marker = ({
     const labelContainerElem = document.querySelector('#labels');
     const label = renderToStaticMarkup(
       <Label
-        name={name || 'garden'}
+        name={data.name || 'garden'}
         // initialAnim={initialAnim}
-        imageUrl={''}
+        hdri={data.hdri}
+        imageUrl={data.image}
         pos={position}
       />
     );
     const obj = markerRef.current;
     const elem = document.createElement('div');
-    elem.addEventListener('click', (e) => {
+
+    const onClick = (e) => {
       console.log('thumnail click');
       const elem = e.target.closest('#label-div');
       console.log(elem);
-      const hdriName = elem.getAttribute('data-name');
+      const hdriName = elem.getAttribute('data-hdri');
       console.log(hdriName);
       onThumbnailSelect(hdriName);
+      if (camera) {
+        console.log('changing cam');
+        // console.log(camera);
+        // console.log(hdri);
+        if (hdriName === 'fields') {
+          camera.fov = 30;
+        } else {
+          camera.fov = 80;
+        }
+        camera.position.set(-0.516, 7.076, -16.788);
+        camera.rotation.set(-2.012, -0.045, -3.045);
+        ctrlRef.current.enabled = true;
+        console.log(camera);
+      }
+    };
+
+    elem.addEventListener('click', (e) => {
+      onClick(e);
     });
+
     elem.innerHTML = label;
-    // obj.material.transparent = true;
-    // obj.material.opacity = 0;
+    obj.material.transparent = true;
+    obj.material.opacity = 0;
     // console.log(markerRef.current);
     labelContainerElem.appendChild(elem);
 
@@ -52,21 +65,6 @@ const Marker = ({
       });
       labelContainerElem.removeChild(elem);
     };
-    // Calculate the 2D position of the Box on the canvas
-    const canvasSize = {
-      width: canvas.clientWidth,
-      height: canvas.clientHeight,
-    };
-    const vector = position.clone();
-    vector.project(camera);
-    const x = Math.round(((vector.x + 1) * canvasSize.width) / 2);
-    const y = Math.round(((-vector.y + 1) * canvasSize.height) / 2);
-
-    // Update the position of the div
-    if (divRef.current) {
-      divRef.current.style.left = `${x}px`;
-      divRef.current.style.top = `${y}px`;
-    }
   }, [canvas, camera, position]);
 
   const tempV = new Vector3();
@@ -97,7 +95,14 @@ const Marker = ({
 
 export default Marker;
 
-const Label = ({ name, initialAnim, imageUrl, pos }) => {
+export const Label = ({
+  name,
+  initialAnim,
+  imageUrl,
+  pos,
+  hdri,
+  onThumbnailSelect,
+}) => {
   console.log(initialAnim);
   console.log(pos);
 
@@ -105,14 +110,22 @@ const Label = ({ name, initialAnim, imageUrl, pos }) => {
     <div
       data-pos={JSON.stringify(pos)}
       data-name={name}
+      data-hdri={hdri}
+      onClick={(e) => {
+        console.log('clickie');
+        const elem = e.target.closest('#label-div');
+        const hdriName = elem.getAttribute('data-hdri');
+        console.log(hdriName);
+        onThumbnailSelect(hdriName);
+      }}
       id='label-div'
       className={` ${
         initialAnim ? 'hidden' : 'flex'
-      }  flex-col gap-2 w-max items-center pointer-events-auto text-cyan-100 `}>
+      }  flex-col gap-2 w-max items-center pointer-events-auto text-cyan-100  cursor-pointer`}>
       <div className='rounded-full bg-slate-900'>
         <img
-          // src={`./buildings/${imageUrl}`}
-          src='./vite.svg'
+          src={`./hdri/${imageUrl}`}
+          // src='./vite.svg'
           alt=''
           className='object-cover h-16 w-16 border-slate-300 border-2  rounded-full'
         />

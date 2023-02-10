@@ -95,7 +95,7 @@ const CanvasWrapper = ({ onThumbnailSelect, hdri }) => {
         background={'only'}
         intensity={0.5}
       />
-      {hdri === 'fields' ? (
+      {hdri === 'forest' ? (
         <>
           <ForestMap ctrlRef={ctrlRef} />
           {!enabled &&

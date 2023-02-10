@@ -11,7 +11,7 @@ import { Label } from './Components/ThreeJS/Marker';
 import { propertyData } from './Components/constants';
 
 function App() {
-  const [hdri, sethdri] = useState('fields');
+  const [hdri, sethdri] = useState('forest');
   const [showAbout, setShowAbout] = useState(false);
 
   const onThumbnailSelect = (hdriname) => {

@@ -18,7 +18,7 @@ function App() {
     console.log(hdriname);
     console.log('Thumbnail Selected ');
     sethdri(hdriname);
-    setShowNextMaps(hdriname === 'fields' ? false : true);
+    setShowNextMaps(hdriname === 'forest' ? false : true);
   };
   const [showNextMaps, setShowNextMaps] = useState(false);
 

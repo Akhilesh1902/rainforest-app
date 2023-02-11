@@ -5,7 +5,7 @@ import { renderToStaticMarkup } from 'react-dom/server';
 import { Vector3 } from 'three';
 import { motion } from 'framer-motion';
 const Marker = ({ position, enableMarkers, onThumbnailSelect, data }) => {
-  console.log(enableMarkers);
+  // console.log(enableMarkers);
   const { gl, camera } = useThree();
   const canvas = gl.domElement;
   const markerRef = useRef();
@@ -36,7 +36,7 @@ const Marker = ({ position, enableMarkers, onThumbnailSelect, data }) => {
         console.log('changing cam');
         // console.log(camera);
         // console.log(hdri);
-        if (hdriName === 'fields') {
+        if (hdriName === 'forest') {
           camera.fov = 30;
         } else {
           camera.fov = 80;
@@ -69,8 +69,8 @@ const Marker = ({ position, enableMarkers, onThumbnailSelect, data }) => {
 
   const tempV = new Vector3();
   // console.log(markerRef.current);
-  console.log(markerRef.current);
-  console.log(enableMarkers);
+  // console.log(markerRef.current);
+  // console.log(enableMarkers);
   useFrame(() => {
     // console.log(markerRef.current);
     markerRef.current.updateWorldMatrix(true, false);
@@ -103,8 +103,8 @@ export const Label = ({
   hdri,
   onThumbnailSelect,
 }) => {
-  console.log(initialAnim);
-  console.log(pos);
+  // console.log(initialAnim);
+  // console.log(pos);
 
   return (
     <div

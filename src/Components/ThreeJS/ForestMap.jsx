@@ -44,9 +44,9 @@ const ForestMap = ({ ctrlRef }) => {
           map={texture}
           side={DoubleSide}
           displacementMap={heightMap}
-          displacementScale={8}
+          displacementScale={10}
           bumpMap={heightMap}
-          bumpScale={1}
+          bumpScale={0}
         />
       </Plane>
       <Cloud />

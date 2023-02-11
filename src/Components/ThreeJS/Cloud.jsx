@@ -22,7 +22,7 @@ const Cloud = () => {
   });
   // console.log(grpref.current);
   return (
-    <group ref={grpref} position={[-50, 5, 0]}>
+    <group ref={grpref} position={[0, 5, -15]}>
       {posArr.map((pos, i) => (
         <Plane
           position={pos}

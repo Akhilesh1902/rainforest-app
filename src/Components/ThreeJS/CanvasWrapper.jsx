@@ -20,7 +20,7 @@ const CanvasWrapper = ({ onThumbnailSelect, hdri }) => {
       console.log('changing cam');
       // console.log(camera);
       // console.log(hdri);
-      if (hdri === 'fields') {
+      if (hdri === 'forest') {
         camera.fov = 30;
       } else {
         camera.fov = 80;
@@ -70,21 +70,21 @@ const CanvasWrapper = ({ onThumbnailSelect, hdri }) => {
         minDistance={25}
         maxDistance={35}
         zoomSpeed={0.5}
-        enablePan={hdri === 'fields' ? true : false}
+        enablePan={hdri === 'forest' ? true : false}
         enableDamping={true}
         dampingFactor={0.1}
         // // enableRotate={false}
-        minPolarAngle={degToRad(hdri === 'fields' ? 30 : 0)}
-        maxPolarAngle={degToRad(hdri === 'fields' ? 60 : 180)}
+        minPolarAngle={degToRad(hdri === 'forest' ? 30 : 0)}
+        maxPolarAngle={degToRad(hdri === 'forest' ? 60 : 180)}
         panSpeed={0.5}
-        rotateSpeed={0.1}
+        rotateSpeed={0.2}
         // enableRotate={false}
         // minAzimuthAngle={degToRad(0)}
         // maxAzimuthAngle={degToRad(10)}
         enabled={false}
         mouseButtons={{
-          LEFT: MOUSE.PAN,
-          RIGHT: MOUSE.ROTATE,
+          LEFT: MOUSE.ROTATE,
+          RIGHT: MOUSE.PAN,
           MIDDLE: MOUSE.DOLLY,
         }}
       />
@@ -120,9 +120,9 @@ const CanvasWrapper = ({ onThumbnailSelect, hdri }) => {
             surroundMarker={true}
             position={[10, 0, 1]}
             enableMarkers={!enabled}
-            name={'fields'}
+            name={'forest'}
             onThumbnailSelect={onThumbnailSelect}
-            data={{ name: 'fields', hdri: 'fields', image: 'forest.jpg' }}
+            data={{ name: 'forest', hdri: 'forest', image: 'forest.jpg' }}
           />
         </>
       )}
